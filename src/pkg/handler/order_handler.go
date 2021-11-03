@@ -12,6 +12,8 @@ import (
 
 type OrderHandler interface {
 	CreateOrder(*gin.Context)
+	CancelledOrder(*gin.Context)
+
 	HealthCheck(*gin.Context)
 }
 
@@ -31,6 +33,19 @@ func (o *orderHandler) CreateOrder(c *gin.Context) {
 	c.BindJSON(&order)
 
 	err := createOrderService.CreateOrder(&o.settings, order)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	c.JSON(http.StatusOK, gin.H{"order": order})
+}
+
+func (o *orderHandler) CancelledOrder(c *gin.Context) {
+	var order model.Order
+
+	c.BindJSON(&order)
+
+	err := createOrderService.CancelledOrder(&o.settings, order)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 	}

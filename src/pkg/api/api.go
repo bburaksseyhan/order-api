@@ -18,6 +18,8 @@ func Initialize(config utils.Configuration) {
 	orderHandler := handlers.NewOrderHandler(&config.Queue)
 
 	router.POST("/", orderHandler.CreateOrder)
+	router.POST("/cancelled", orderHandler.CancelledOrder)
+
 	router.GET("/ping", orderHandler.HealthCheck)
 
 	router.Run(":" + config.Server.Port + "")

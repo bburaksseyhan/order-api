@@ -10,11 +10,16 @@ import (
 )
 
 const (
-	QUEUENAME = "NEW_ORDER_QUEUE"
+	CREATEQUEUENAME    = "NEW_ORDER_QUEUE"
+	CANCELLEDQUEUENAME = "CANCELLED_ORDER_QUEUE"
 )
 
 func CreateOrder(setting *utils.QueueSettings, order model.Order) error {
-	return queueService(QUEUENAME, setting, order)
+	return queueService(CREATEQUEUENAME, setting, order)
+}
+
+func CancelledOrder(setting *utils.QueueSettings, order model.Order) error {
+	return queueService(CANCELLEDQUEUENAME, setting, order)
 }
 
 func queueService(queueName string, setting *utils.QueueSettings, order model.Order) error {
