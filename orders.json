@@ -1,0 +1,17 @@
+{
+    "id":24,
+    "trackingnumber":"34539089",
+    "customer":{
+        "email":"burakseyhan8@gmail.com",
+        "nickname":"burki",
+        "phone":"55543322",
+        "address":"istanbul"
+    },
+    "products":[
+        {"name":"burger", "quantity":1,"price":56.34},
+        {"name":"patates", "quantity":4,"price":4.34},
+        {"name":"kola", "quantity":4,"price":8.90},
+        {"name":"dondurma", "quantity":2,"price":18.90},
+        {"name":"poşet", "quantity":4,"price":0.25}
+    ]
+}
