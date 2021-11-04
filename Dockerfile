@@ -16,7 +16,7 @@ ENV TZ Europe/Istanbul
 
 WORKDIR /app
 COPY --from=build-env /order-api .
-COPY --from=build-env /app/configuration.* ./
+COPY --from=build-env /app/src/cmd/api /app/
 
 EXPOSE 80
 CMD [ "./order-api" ]
