@@ -2,4 +2,4 @@ server:
   port: "3001"
 
 queue:
-  url: "amqp://admin:123@localhost:5672/"
+  url: "amqp://admin:123@rabbitmq:5672/"
