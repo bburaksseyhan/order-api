@@ -28,7 +28,7 @@ services:
     labels:
       NAME: "rabbitmq"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      test: ["CMD-SHELL", "if rabbitmqctl status; then \nexit 0 \nfi \nexit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
