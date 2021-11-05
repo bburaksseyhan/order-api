@@ -40,7 +40,11 @@ func queueService(queueName string, setting *utils.QueueSettings, order model.Or
 
 	defer channel.Close()
 
-	q, _ := channel.QueueDeclare(queueName, false, false, false, false, nil)
+	q, err := channel.QueueDeclare(queueName, false, false, false, false, nil)
+	if err != nil {
+		log.Error(err)
+		panic(err)
+	}
 
 	log.Info(q)
 
