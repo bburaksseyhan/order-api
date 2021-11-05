@@ -23,6 +23,8 @@ func CancelledOrder(setting *utils.QueueSettings, order model.Order) error {
 }
 
 func queueService(queueName string, setting *utils.QueueSettings, order model.Order) error {
+	log.Info("URL: \n", setting.Url)
+
 	conn, err := amqp.Dial(setting.Url)
 
 	if err != nil {
