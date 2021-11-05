@@ -12,16 +12,6 @@ services:
       - "9090:80"
     restart: unless-stopped
 
-  orderapi:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    # ports:
-    #   - 3001:3001
-    restart: on-failure
-    depends_on:
-      - rabbitmq 
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: "rabbitmq"
@@ -42,3 +32,25 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  orderapi:
+    build:
+      context: https://github.com/bburaksseyhan/order-api.git#main
+    restart: on-failure
+    links:
+      - rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  
+  orderapiconsumer:
+      build:
+        context: https://github.com/bburaksseyhan/order-api-consumer.git#main
+      restart: always
+      links:
+        - rabbitmq
+      depends_on:
+        rabbitmq:
+          condition: service_healthy
+      environment:
+        - GO_RABBITMQ_URL=amqp://admin:123@rabbitmq:5672/
