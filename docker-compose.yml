@@ -2,12 +2,22 @@ version: '3.4'
 
 services:
 
+  reverseproxy:
+    build: 
+      context: .
+      dockerfile: nginx/Dockerfile
+    depends_on: 
+      - orderapi
+    ports: 
+      - "9090:80"
+    restart: unless-stopped
+
   orderapi:
     build:
       context: .
       dockerfile: ./Dockerfile
-    ports:
-      - 3001:3001
+    # ports:
+    #   - 3001:3001
     restart: on-failure
     depends_on:
       - rabbitmq 

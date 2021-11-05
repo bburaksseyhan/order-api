@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/bburaksseyhan/orderapi/src/cmd/utils"
 	"github.com/bburaksseyhan/orderapi/src/pkg/model"
@@ -56,5 +57,13 @@ func (o *orderHandler) CancelledOrder(c *gin.Context) {
 func (o *orderHandler) HealthCheck(c *gin.Context) {
 
 	log.Info("ping == pong")
-	c.JSON(http.StatusOK, gin.H{"ping": "pong"})
+
+	hostname, err := os.Hostname()
+	if err != nil {
+		log.Error(err.Error())
+		os.Exit(1)
+	}
+	log.Info("hostname", hostname)
+
+	c.JSON(http.StatusOK, gin.H{"ping": hostname})
 }
